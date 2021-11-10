@@ -26,10 +26,10 @@ form = st.form("template_form")
 student = form.text_input("Student name")
 course = form.selectbox(
     "Choose course",
-    ["Report Generation in Streamlit 🎈", "Advanced Cryptography"],
+    ["Report Generation in Streamlit", "Advanced Cryptography"],
     index=0,
 )
-grade = form.slider("Grade", 1, 5, 2)
+grade = form.slider("Grade", 1, 100, 60)
 submit = form.form_submit_button("Generate PDF")
 
 
@@ -37,7 +37,7 @@ if submit:
     html = template.render(
         student=student,
         course=course,
-        grade=f"{grade}/5",
+        grade=f"{grade}/100",
         date=date.today().strftime("%B %d, %Y"),
     )
 
