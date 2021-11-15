@@ -11,18 +11,18 @@ st.write(
     "This app shows you how you can use Streamlit to make a PDF generator app in just a few lines of code!"
 )
 
+left, right = st.columns(2)
 
-st.write("Here's the template we'll be using:")
+right.write("Here's the template we'll be using:")
 
-st.image("template.png", width=300)
+right.image("template.png", width=300)
 
 env = Environment(loader=FileSystemLoader("."), autoescape=select_autoescape())
 template = env.get_template("template.html")
 
 
-st.write("### Fill in the data...")
-st.write("")
-form = st.form("template_form")
+left.write("Fill in the data:")
+form = left.form("template_form")
 student = form.text_input("Student name")
 course = form.selectbox(
     "Choose course",
@@ -31,7 +31,6 @@ course = form.selectbox(
 )
 grade = form.slider("Grade", 1, 100, 60)
 submit = form.form_submit_button("Generate PDF")
-
 
 if submit:
     html = template.render(
@@ -44,10 +43,10 @@ if submit:
     pdf = pdfkit.from_string(html, False)
     st.balloons()
 
-    st.write("### And here's the diploma!")
-    st.write(html, unsafe_allow_html=True)
-    st.write("")
-    st.download_button(
+    right.success("🎉 Your diploma was generated!")
+    # st.write(html, unsafe_allow_html=True)
+    # st.write("")
+    right.download_button(
         "⬇️ Download PDF",
         data=pdf,
         file_name="diploma.pdf",
