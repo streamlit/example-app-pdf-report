@@ -1,2 +1,4 @@
 pdfkit
 streamlit
+
+click==8
